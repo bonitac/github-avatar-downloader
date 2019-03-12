@@ -3,10 +3,7 @@ var sk = require('./secrets')
 var request = require('request');
 var fs = require('fs')
 
-repoOwner = process.argv[2];
-repoName = process.argv[3];
-
-function getRepoContributors(repoOwner, repoName, cb) {
+function getRepoContributors(repoOwner, repoName) {
   var options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
@@ -16,7 +13,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
   };
   
   request(options, function(err, res, body) {
-    cb(err, JSON.parse(body)); //deal with err after establishing "happy path"
+    // cb(err, JSON.parse(body)); //deal with err after establishing "happy path"
     JSON.parse(body).forEach(function(user){return downloadImageByURL(user.avatar_url,"avatars/"+user.login+".jpg")
     });
   })}
@@ -32,8 +29,5 @@ function downloadImageByURL(url, filePath) {
     .pipe(fs.createWriteStream("./"+filePath));  
     })
 }
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani2.jpg")
 
-
-getRepoContributors("jquery", "jquery", function(err, result) {
-});
+getRepoContributors("jquery", "jquery")
