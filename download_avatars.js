@@ -3,6 +3,9 @@ var sk = require('./secrets')
 var request = require('request');
 var fs = require('fs')
 
+repoOwner = process.argv[2];
+repoName = process.argv[3];
+
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
