@@ -26,19 +26,10 @@ function downloadImageByURL(url, filePath) {
     .on('error', function (err) {
       throw err; 
     })
-    .on('response', function (response) {
-      console.log('Response Status Code: ', response);
-    })
     .pipe(fs.createWriteStream("./"+filePath));  
     })
 }
 downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg")
-
-// request.get("https://avatars2.githubusercontent.com/u/2741?v=3&s=466")
-//         .on('error', function (err){throw err})
-//         .pipe(fs.createReadStream("test.jpg"))
-
-
 
 
 // getRepoContributors("jquery", "jquery", function(err, result) {
