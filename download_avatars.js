@@ -3,6 +3,12 @@ var request = require('request');
 var fs = require('fs')
 
 getRepoContributors(process.argv[2],process.argv[3],function(err, result) {
+  if (!process.env.github){
+    err = "No .env"
+  }
+  if (!process.argv[2] || !process.argv[3]){
+    err = "Enter valid arguments"
+  }
   console.log("Errors:", err);
 });
 
@@ -17,6 +23,7 @@ function getRepoContributors(repoOwner, repoName,cb) {
   
   request(options, function(err, res, body) {
     cb(err, JSON.parse(body)); //deal with err after establishing "happy path"
+    
     JSON.parse(body).forEach(function(user){return downloadImageByURL(user.avatar_url,"avatars/"+user.login+".jpg")
     });
   })}
